@@ -7,7 +7,7 @@ class BottleCapGame(object):
             player_name = str("\033[91m") + player_name + str("\033[0m")
         elif player_name == "player2":
             player_name = str("\033[0;32m") + player_name + str("\033[0m")
-        elif player_name == "beginning":
+        elif player_name == "start":
             player_name = str("\033[90m") + player_name + str("\033[0m")
 
         cap_list_str = ""
@@ -29,24 +29,6 @@ class BottleCapGame(object):
         if self.cap_list.count(self.cap_list[0]) == len(self.cap_list):
             print("*"*50 + "\n" + player_name + " WON!")
 
-
-# def validate_for_input(selected_caps):
-#     length = len(selected_caps)
-#     if length == 0 or length > 2:
-#         return False
-
-#     if int(selected_caps[1]) - int(selected_caps[0]) != 1:
-#         return False
-
-#     for index in selected_caps:
-#         try:
-#             i = int(index)
-#             if cap_list[i-1] != "0": return False
-#         except:
-#             return False
-
-#     return True
-
     def validate_for_input(self, selected_caps):
         if len(selected_caps) == 0 or len(selected_caps) > 2: return False
 
@@ -63,7 +45,7 @@ class BottleCapGame(object):
         return True
 
 
-    def remove_select_caps(self, player_name, selected_caps):
+    def remove_selected_caps(self, player_name, selected_caps):
         if player_name == "player1": mark_string = "P1"
         if player_name == "player2": mark_string = "P2"
         for position in selected_caps:
@@ -73,7 +55,7 @@ class BottleCapGame(object):
 
 
 
-    def select_caps_for_bot(self, selected_caps):
+    def select_bot_caps(self, selected_caps):
         if selected_caps[0] > 4 and selected_caps[0] < 12:
             for i in range(0, len(selected_caps)):
                 if selected_caps[i] > 7:
@@ -106,6 +88,7 @@ class BottleCapGame(object):
                             return_caps.append(i + 1)
                     if len(return_caps) == 0 and self.cap_list[0] == "O":
                         return_caps.append(1)
+                        print("teseting1")
             else:
                 if self.cap_list[selected_caps[0] - 2] == "O":
                     return_caps.append(selected_caps[0] - 1)

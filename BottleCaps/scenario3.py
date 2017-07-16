@@ -16,7 +16,7 @@ def outputCapList(playerName):
         playerName = str("\033[91m") + playerName + str("\033[0m")
     elif playerName == "player2":
         playerName = str("\033[0;32m") + playerName + str("\033[0m")
-    elif playerName == "beginning":
+    elif playerName == "starting":
         playerName = str("\033[90m") + playerName + str("\033[0m")
 
     # make string for output
@@ -25,10 +25,10 @@ def outputCapList(playerName):
         cap = capList[i]
         if cap == "P1":
             capList[i] = "X"
-            capListStr += str("\033[91m_\033[0m")
+            capListStr += str("\033[91mX\033[0m")
         elif cap == "P2":
             capList[i] = "X"
-            capListStr += str("\033[0;32m_\033[0m")
+            capListStr += str("\033[0;32mX\033[0m")
         elif cap == "X":
             capListStr += "_"
         else:
@@ -36,6 +36,9 @@ def outputCapList(playerName):
 
     # print output string
     print(playerName + ": " + capListStr)
+
+    if capList.count(capList[0]) == len(capList): 
+        print("*"*50 + "\n" + playerName + " WON!")
 
 #///////////////////////////////////////////////////////
 # function name: validateForInput
@@ -82,23 +85,14 @@ def removeSelectedCapsFromCapList(playerName, selectedCaps):
 #///////////////////////////////////////////////////////
 def selectCapsForComputer(selectedCaps):
     if selectedCaps[0] > 4 and selectedCaps[0] < 12:
-        # print("first")
-        offset = 4
-        tempcapCount = 7
         for i in range(0, len(selectedCaps)):
-            if selectedCaps[i] - offset > tempcapCount / 2:
-                # print(len(selectedCaps))
-                # print("first first")
-                selectedCaps[i] = selectedCaps[i] - tempcapCount / 2 - 1
+            if selectedCaps[i] > 7:
+                selectedCaps[i] = selectedCaps[i] - 4
             else:
-                # print(i)
-                # print(len(selectedCaps))
-                # print("first second")
-                selectedCaps[i] = selectedCaps[i] + tempcapCount / 2 + 1
-                # print(tempcapCount / 2)
-                # print(selectedCaps[i])
+                selectedCaps[i] = selectedCaps[i] + 4
 
         return selectedCaps
+
     elif selectedCaps[0] == 1:
         # print("second")
         retCaps = []
@@ -113,36 +107,42 @@ def selectCapsForComputer(selectedCaps):
                     retCaps.append(i + 1)
         return retCaps
     else:
-        print("third")
+        # print("third")
         retCaps = []
         if len(selectedCaps) == 1:
-            print("third first")
+            # print("third first")
             if capList[selectedCaps[0] - 2] == "O" and capList[selectedCaps[0] - 3] == "O":
                 print("third first first")
                 retCaps.append(selectedCaps[0] - 2)
                 retCaps.append(selectedCaps[0] - 1)
             elif selectedCaps[0] < 15 and capList[selectedCaps[0]] == "O" and capList[selectedCaps[0] + 1] == "O":
-                print("third first second")
+                # print("third first second")
                 retCaps.append(selectedCaps[0] + 1)
                 retCaps.append(selectedCaps[0] + 2)
             else:
-                print("third first third")
+                # print("third first third")
                 for i in range(12, 16):
                     if capList[i] == "O" and i != selectedCaps[0] - 1:
+                        # print(i)
+                        # print(selectedCaps[0])
+                        # print(selectedCaps[0] - 1)
+                        # print("third first third first")
                         retCaps.append(i + 1)
-                if len(retCaps) == 0 and capList[0] == "O": retCaps.append(1)
+                if len(retCaps) == 0 and capList[0] == "O": 
+                    # print("third first third second")
+                    retCaps.append(1)
         else:
-            print("third second")
+            # print("third second")
             if capList[selectedCaps[0] - 2] == "O":
-                print("third second first")
+                # print("third second first")
                 retCaps.append(selectedCaps[0] - 1)
-            elif capList[selectedCaps[1]] == "O":
-                print("third second second")
+            elif capList[selectedCaps[0] + 1] == "O":
+                # print("third second second")
                 retCaps.append(selectedCaps[0] + 2)
             else:
-                print("third second third")
+                # print("third second third")
                 if capList[0] == "O": retCaps.append(1)
-                print("third second third first")
+                # print("third second third first")
 
         return retCaps
 
@@ -168,7 +168,8 @@ while(endGame() == False):
     selectedCaps = []
     while(validateForInput(selectedCaps) == False):
         try:
-            selectedCaps = list(input("Please select one or two caps(ex-5, or 5,6): "))
+            selectedCaps = list(input("Please select one or two caps(5, or 5,6): "))
+            # print("player2 selected:", selectedCaps)
         except:
             print("Try to input again.")
 
@@ -177,5 +178,6 @@ while(endGame() == False):
 
     # player1(computer) select caps
     selectedCaps = selectCapsForComputer(selectedCaps)
+    # print("player1 selected:", selectedCaps)
     # remove selected caps from capList
     removeSelectedCapsFromCapList("player1", selectedCaps)

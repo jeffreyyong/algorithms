@@ -1,107 +1,89 @@
-
-# set cap list
-# capCount = 12
-
-# capList = ["O", "O", "O", "O", "O", "O", "X", "O", "O", "O", "O", "O"]
-
 class BottleCapGame(object):
     def __init__(self, cap_list):
         self.cap_list = cap_list
 
+    def output_cap_list(self, player_name):
 
-    def outputCapList(playerName):
+        if player_name =="player1":
+            player_name = str("\033[91m") + player_name + str("\033[0m")
+        elif player_name == "player2":
+            player_name = str("\033[0;32m") + player_name + str("\033[0m")
+        elif player_name == "start":
+            player_name = str("\033[90m") + player_name + str("\033[0m")
 
-        # set color for player name
-        if playerName =="player1":
-            playerName = str("\033[91m") + playerName + str("\033[0m")
-        elif playerName == "player2":
-            playerName = str("\033[0;32m") + playerName + str("\033[0m")
-        elif playerName == "initial":
-            playerName == str("\033[92m") + playerName + str("\033[0m")
-
-        # make string for output
-        capListStr = ""
-        for i in range(0, len(capList)):
-            cap = capList[i]
+        cap_list_str = ""
+        for i in range(0, len(self.cap_list)):
+            cap = self.cap_list[i]
             if cap == "P1":
-                capList[i] = "X"
-                capListStr += str("\033[91m_\033[0m")
+                self.cap_list[i] = "X"
+                cap_list_str += str("\033[91m_\033[0m")
             elif cap == "P2":
-                capList[i] = "X"
-                capListStr += str("\033[0;32m_\033[0m")
+                self.cap_list[i] = "X"
+                cap_list_str += str("\033[0;32m_\033[0m")
             elif cap == "X":
-                capListStr += "_"
+                cap_list_str += "_"
             else:
-                capListStr += cap
+                cap_list_str += cap
 
-        # print output string
-        print(playerName + ": " + capListStr)
+        print(player_name + ": " + cap_list_str)
 
-    def validateForInput(selectedCaps):
-        if len(selectedCaps) == 0: return False
+    def validate_for_input(self, selected_caps):
+        if len(selected_caps) == 0: return False
 
-        if len(selectedCaps) > 2: return False
+        if len(selected_caps) > 2: return False
 
-        for one in selectedCaps:
+        for one in selected_caps:
             try:
                 temp = int(one)
-                if capList[temp-1] != "O": return False
+                if self.cap_list[temp-1] != "O": return False
             except:
                 return False
 
-        if len(selectedCaps) == 1: return True
-        if int(selectedCaps[1]) - int(selectedCaps[0]) != 1: return False
+        if len(selected_caps) == 1: return True
+        if int(selected_caps[1]) - int(selected_caps[0]) != 1: return False
 
         return True
 
-    def removeSelectedCapsFromCapList(playerName, selectedCaps):
-        if playerName == "player1": markStr = "P1"
-        if playerName == "player2": markStr = "P2"
-        for position in selectedCaps:
-            capList[position-1] = markStr
+    def remove_selected_caps(self, player_name, selected_caps):
+        if player_name == "player1": markStr = "P1"
+        if player_name == "player2": markStr = "P2"
+        for position in selected_caps:
+            self.cap_list[position-1] = markStr
 
-        outputCapList(playerName)
+        self.output_cap_list(player_name)
 
-    def selectCapsForComputer(selectedCaps):
-        for i in range(0, len(selectedCaps)):
-            if selectedCaps[i] > capCount / 2:
-                selectedCaps[i] = selectedCaps[i] - capCount / 2 - 1
+    def select_bot_caps(self, selected_caps):
+        cap_count = 12
+        for i in range(0, len(selected_caps)):
+            if selected_caps[i] > cap_count / 2:
+                selected_caps[i] = selected_caps[i] - cap_count / 2 - 1
             else:
-                selectedCaps[i] = selectedCaps[i] + capCount / 2 + 1
+                selected_caps[i] = selected_caps[i] + cap_count / 2 + 1
 
-        return selectedCaps
+        return selected_caps
 
-    def endGame():
-        for cap in capList:
+    def end_game(self):
+        for cap in self.cap_list:
             if cap != "X": return False
         return True
 
-# first computer select cap
-# outputCapList("initial")
-# capList[5] = "P1"
-# outputCapList("player1")
-
 def main():
-
-
-
-
-    while(endGame() == False):
-        # player2(person) select caps
-        selectedCaps = []
-        while(validateForInput(selectedCaps) == False):
+    game = BottleCapGame(["O", "O", "O", "O", "O", "O", "X", "O", "O", "O", "O", "O"])
+    game.output_cap_list("start")
+    game.cap_list[5] = "P1"
+    game.output_cap_list("player1")
+    while(game.end_game() == False):
+        selected_caps = []
+        while(game.validate_for_input(selected_caps) == False):
             try:
-                selectedCaps = list(input("Please select one or two caps(ex-5, or 5,6): "))
+                selected_caps = list(input("Please select one or two caps(ex-5, or 5,6): "))
             except:
                 print("Try to input again.")
 
-        # remove selected caps from capList
-        removeSelectedCapsFromCapList("player2", selectedCaps)
+        game.remove_selected_caps("player2", selected_caps)
 
-        # player1(computer) select caps
-        selectedCaps = selectCapsForComputer(selectedCaps)
-        # remove selected caps from capList
-        removeSelectedCapsFromCapList("player1", selectedCaps)
+        selected_caps = game.select_bot_caps(selected_caps)
+        game.remove_selected_caps("player1", selected_caps)
 
 if __name__ == '__main__':
     main()

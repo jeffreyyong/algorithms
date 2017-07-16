@@ -1,3 +1,4 @@
+import readline
 
 # set cap list
 capCount = 12
@@ -16,6 +17,8 @@ def outputCapList(playerName):
         playerName = str("\033[91m") + playerName + str("\033[0m")
     elif playerName == "player2":
         playerName = str("\033[0;32m") + playerName + str("\033[0m")
+    elif playerName == "initial":
+        playerName == str("\033[92m") + playerName + str("\033[0m")
 
     # make string for output
     capListStr = ""
@@ -99,6 +102,7 @@ def endGame():
     return True
 
 # first computer select cap
+outputCapList("initial")
 capList[5] = "P1"
 outputCapList("player1")
 

@@ -127,9 +127,9 @@ class BottleCapGame(object):
 
 def main():
     game = BottleCapGame(["O", "X", "O", "O", "O", "O", "O", "X", "O", "O", "O", "X", "O", "O", "O", "O"])
-    game.output_cap_list("starting")
+    game.output_cap_list("start")
     game.cap_list[2] = "P1"
-    game.cap_list[3] = "P2"
+    game.cap_list[3] = "P1"
     game.output_cap_list("player1")
 
     while(game.end_game() == False):

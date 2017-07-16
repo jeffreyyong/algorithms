@@ -139,11 +139,11 @@ def main():
                 selected_caps = list(input("Please choose one or two caps(5, or 5,6): "))
             except:
                 print("Try to choose again.")
-        game.remove_select_caps("player2", selected_caps)
+        game.remove_selected_caps("player2", selected_caps)
 
-        selected_caps = game.select_caps_for_bot(selected_caps)
+        selected_caps = game.select_bot_caps(selected_caps)
 
-        game.remove_select_caps("player1", selected_caps)
+        game.remove_selected_caps("player1", selected_caps)
 
 if __name__ == '__main__':
     main()

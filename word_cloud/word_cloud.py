@@ -53,4 +53,50 @@ class WordCloudData:
                         self.add_word_to_dictinoary(current_word)
                         current_word_length = 0
 
+            # if the character is a letter or an apostrophe, we add it to our current word
+            elif character.isalpha() or character == '\'':
+                if current_word_length == 0:
+                    current_word_start_index = i
+                current_word_length += 1
+
+            # if the character is a hyphe, we want to check if it's surrounded by letters
+            # if it is, we add it to our current word
+            elif character == '-':
+                if i > 0 and input_string[i -1].isalpha() and input_string[i + 1].isalpha():
+                    if current_word_length == 0:
+                        current_word_start_index = i
+                    current_word_length += 1
+                else:
+                    if current_word_length > 0:
+                        current_word = input_string[current_word_start_index: current_word_start_index + current_word_length]
+                        self.add_word_to_dictionary(current_word)
+                        current_word_length = 0
+    
+    def add_word_to_dictionary(self, word):
+
+        # if the word is already in the dictionary we increment its count
+        if word in self.words_to_counts:
+            self.words_to_counts[word] += 1
+
+        # if a lowercase version is in the dictionary, we know our input word must be upper but we only
+        # include uppercase words if they're always uppercase
+        # so we just increment the lowercase version's count
+
+        elif word.lower() in self.words_to_counts:
+            self.words_to_counts[word.lower()] += 1
+
+        # if an uppercase version is in the dictionary, we know our input word must be lower
+        # since we only include uppercase words if they're always uppercase, we add the 
+        # lowercase version and give it the uppercase version's count
+        elif word.capitalize() in self.words_to_counts:
+            self.words_to_counts[word] = 1
+            self.words_to_counts[word] += self.words_to_counts[word.capitalize()]
+            del self.words_to_counts[word.capitalize()]
+
+        # otherwise, the word is not in the dictionary at all, lowercase or uppercase so we add it to the dictionary
+        else:
+            self.words_to_counts[word] = 1
+
+    
+
 

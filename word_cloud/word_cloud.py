@@ -96,7 +96,3 @@ class WordCloudData:
         # otherwise, the word is not in the dictionary at all, lowercase or uppercase so we add it to the dictionary
         else:
             self.words_to_counts[word] = 1
-
-    
-
-

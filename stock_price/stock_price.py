@@ -1,5 +1,8 @@
 # Write an efficient function that takes stock_prices_yesterday and returns the best profit I could have made from 1 purchase and 1 sale of 1 Apple stock yesterday
 
+def main():
+    print(get_max_profit([1,7,6,10,15]))
+
 def get_max_profit(stock_prices_yesterday):
     # make sure we have at least 2 prices
     if len(stock_prices_yesterday) < 2:
@@ -36,5 +39,7 @@ def get_max_profit(stock_prices_yesterday):
     return max_profit
 
 
+if __name__ == "__main__":
+    main()
 # Complexity:
 # O(n) time and O(1) space. We only loop through the list once.

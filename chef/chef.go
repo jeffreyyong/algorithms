@@ -1,118 +1,122 @@
 package main
-import "fmt"
+
+import (
+	"fmt"
+	"strconv"
+)
 
 /// Points struct..we have created an array of this struct named arr..which is dynamic
 type Point struct {
-    x int
-    y int
+	x int
+	y int
 }
 
-var cnt int
+const numberOfPoints = 3
 
-func chkwithorigin(a Point,b Point) float32{
-    var val int
-    val =(0 - b.x) * (a.y - b.y) - (a.x - b.x) * (0 - b.y)
-    return float32(val)    
-}
-
-func checkinTrn(a Point,b Point,c Point) bool{
-        var b1 bool
-        var b2 bool
-        var b3 bool
-    
-        var val1 float32
-        var val2 float32
-        var val3 float32
-    
-        val1=chkwithorigin(a,b)
-        val2=chkwithorigin(b,c)
-        val3=chkwithorigin(c,a)
-        
-        /// if any val is zero that means origin is not in the set
-        if val1==0.0 || val2==0.0 || val3==0.0{  
-               return false;
-        }
-        
-        if val1<0.0 {
-            b1=true
-        }
-        if val2<0.0{
-            b2=true
-        }
-        if val3<0.0{
-            b3=true
-        }
-    
-        return ((b1 == b2) && (b2 == b3))
-    
-}
-
-/// getting all subsets of 3 points of that array
-func subst(arr []Point,n int, r int, index int,
-							 res [3]Point,i int){
-        
-    if index == r {
-                    var flag bool
-                    flag=checkinTrn(res[0],res[1],res[2])
-                    ///if flag true that means origin is in within that point sets
-                    if flag==true {
-                        //fmt.Println(res);
-                        cnt++;
-                    }
-        
-                    return
-		}
-    
-       if i >= n {
-		  return;
-       }
-		/// adding 3 points data to each res
-		res[index] = arr[i];
-		subst(arr, n, r, index+1, res, i+1);
-
-		subst(arr, n, r, index, res, i+1);
-    
-}
-
-
-func countchk(arr[] Point,n int) {
-	var res [3]Point
-	subst(arr,n, 3, 0, res, 0)
-}
-
+var (
+	count          int
+	containsOrigin bool
+)
 
 func main() {
-    var n int
-    fmt.Scan(&n)
-    
-    /// create point array
-    arr := make([]Point,0)
-    
-    for i := 0; i < n; i++ {
-		var p1 int
-        var p2 int
-        
-        /// scanning number from console
-        fmt.Scan(&p1)
-        fmt.Scan(&p2)
-        
-        /// appending point array
-        arr = append(arr, Point{p1, p2})
-        
-        if num := i; num < 2 {
-            fmt.Println(0)
-        } else {
-            countchk(arr,i+1)
-            ///print the count as output if origins are in points set
-            fmt.Println(cnt)
-            /// resetting the count for next iteration
-            cnt=0
-        }
-        
-        
+	var number int
+	number = 6
+
+	p1 := Point{2, 3}
+	p2 := Point{3, 2}
+	p3 := Point{-1, -1}
+	p4 := Point{3, 3}
+	p5 := Point{4, 1}
+	p6 := Point{5, 5}
+	/// create point array
+	allPoints := []Point{p1, p2, p3, p4, p5, p6}
+	pointArray := make([]Point, 0)
+
+	for i := 0; i < number; i++ {
+
+		pointArray = append(pointArray, allPoints[i])
+
+		if num := i; num < 2 {
+			fmt.Println(0)
+		} else {
+			checkCount(pointArray, i+1)
+			///print the count as output if origins are in points set
+			fmt.Println(count)
+			/// resetting the count for next iteration
+			count = 0
+		}
 	}
 }
 
+func checkOrigin(a Point, b Point) float32 {
+	var val int
+	val = (0-b.x)*(a.y-b.y) - (a.x-b.x)*(0-b.y)
+	return float32(val)
+}
+
+func checkTriangle(a Point, b Point, c Point) bool {
+	var b1 bool
+	var b2 bool
+	var b3 bool
+
+	var val1 float32
+	var val2 float32
+	var val3 float32
+
+	val1 = checkOrigin(a, b)
+	val2 = checkOrigin(b, c)
+	val3 = checkOrigin(c, a)
+
+	/// if any val is zero that means origin is not in the set
+	if val1 == 0.0 || val2 == 0.0 || val3 == 0.0 {
+		return false
+	}
+
+	if val1 < 0.0 {
+		b1 = true
+	}
+	if val2 < 0.0 {
+		b2 = true
+	}
+	if val3 < 0.0 {
+		b3 = true
+	}
+
+	if (b1 == b2) && (b2 == b3) {
+		// fmt.Println("b1: " + strconv.FormatBool(b1))
+		// fmt.Println("b2: " + strconv.FormatBool(b2))
+		// fmt.Println("b3: " + strconv.FormatBool(b3))
+	}
+	return ((b1 == b2) && (b2 == b3))
+}
+
+/// getting combination subsets of 3 points of that array
+func subset(pointArray []Point, number int, index int, res [3]Point, i int) {
+
+	if index == numberOfPoints {
+		fmt.Println(res)
+		containsOrigin = checkTriangle(res[0], res[1], res[2])
+		if containsOrigin {
+			count++
+		}
+		return
+	}
+
+	if i >= number {
+		return
+	}
+	/// adding 3 points data to each res
+	res[index] = pointArray[i]
+	subset(pointArray, number, index+1, res, i+1)
+	fmt.Println("first recurisve index: ", strconv.Itoa(index))
+	subset(pointArray, number, index, res, i+1)
+	fmt.Println("second recurisve index: ", strconv.Itoa(index))
+}
+
+func checkCount(arr []Point, number int) {
+	var res [3]Point
+	subset(arr, number, 0, res, 0)
+}
 
 //// test cases list
 /*

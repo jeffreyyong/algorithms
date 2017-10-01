@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"strconv"
+	// "strconv"
 )
 
 /// Points struct..we have created an array of this struct named arr..which is dynamic
@@ -20,6 +20,7 @@ var (
 
 func main() {
 	var number int
+
 	number = 6
 
 	p1 := Point{2, 3}
@@ -28,8 +29,24 @@ func main() {
 	p4 := Point{3, 3}
 	p5 := Point{4, 1}
 	p6 := Point{5, 5}
-	/// create point array
+
 	allPoints := []Point{p1, p2, p3, p4, p5, p6}
+
+	// number = 10
+
+	// p1 := Point{1, 3}
+	// p2 := Point{2, 10}
+	// p3 := Point{1, -5}
+	// p4 := Point{1, 6}
+	// p5 := Point{2, 3}
+	// p6 := Point{3, 0}
+	// p7 := Point{-2, -1}
+	// p8 := Point{3, 4}
+	// p9 := Point{4, 1}
+	// p10 := Point{5, 5}
+
+	// allPoints := []Point{p1, p2, p3, p4, p5, p6, p7, p8, p9, p10}
+
 	pointArray := make([]Point, 0)
 
 	for i := 0; i < number; i++ {
@@ -83,9 +100,6 @@ func checkTriangle(a Point, b Point, c Point) bool {
 	}
 
 	if (b1 == b2) && (b2 == b3) {
-		// fmt.Println("b1: " + strconv.FormatBool(b1))
-		// fmt.Println("b2: " + strconv.FormatBool(b2))
-		// fmt.Println("b3: " + strconv.FormatBool(b3))
 	}
 	return ((b1 == b2) && (b2 == b3))
 }
@@ -94,7 +108,7 @@ func checkTriangle(a Point, b Point, c Point) bool {
 func subset(pointArray []Point, number int, index int, res [3]Point, i int) {
 
 	if index == numberOfPoints {
-		fmt.Println(res)
+		// fmt.Println(res)
 		containsOrigin = checkTriangle(res[0], res[1], res[2])
 		if containsOrigin {
 			count++
@@ -105,55 +119,15 @@ func subset(pointArray []Point, number int, index int, res [3]Point, i int) {
 	if i >= number {
 		return
 	}
-	/// adding 3 points data to each res
+	// adding 3 points data to each res
 	res[index] = pointArray[i]
 	subset(pointArray, number, index+1, res, i+1)
-	fmt.Println("first recurisve index: ", strconv.Itoa(index))
+	// fmt.Println("first recurisve index: ", strconv.Itoa(index))
 	subset(pointArray, number, index, res, i+1)
-	fmt.Println("second recurisve index: ", strconv.Itoa(index))
+	// fmt.Println("second recurisve index: ", strconv.Itoa(index))
 }
 
 func checkCount(arr []Point, number int) {
 	var res [3]Point
 	subset(arr, number, 0, res, 0)
 }
-
-//// test cases list
-/*
-TC:1
-6
-2 3
-3 0
--1 -1
-3 4
-4 1
-5 5
-
-
-
-TC:2
-6
-2 3
-3 0
--2 -1
-3 4
-4 1
-5 5
-
-
-TC:3
-
-10
-1 3
-2 10
-1 -5
-1 6
-2 3
-3 0
--2 -1
-3 4
-4 1
-5 5
-
-
-*/

@@ -4,74 +4,21 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
+// Driver asd
 type Driver struct {
-	Route  []string
-	Gossip map[int]bool
-	Stops  int
-}
-
-func simulate(routes [][]string, allStops map[string]bool) {
-	drivers := make([]*Driver, 0, len(routes))
-	for i := 0; i < len(routes); i++ {
-		drivers = append(drivers,
-			&Driver{
-				Route:  routes[i],
-				Gossip: map[int]bool{i: true},
-				Stops:  0,
-			})
-	}
-
-	stops := map[string][]*Driver{}
-	for key := range allStops {
-		stops[key] = make([]*Driver, 0, len(drivers))
-	}
-
-	for minute := 0; minute <= 60*8 + 1; minute++ {
-		for _, driver := range drivers {
-			stop := driver.Route[driver.Stops%len(driver.Route)]
-			stops[stop] = append(stops[stop], driver)
-		}
-
-		for key := range stops {
-			groupGossip := map[int]bool{}
-			for _, driver := range stops[key] {
-				for gossip := range driver.Gossip {
-					groupGossip[gossip] = true
-				}
-			}
-			for _, driver := range stops[key] {
-				for gossip := range groupGossip {
-					driver.Gossip[gossip] = true
-				}
-				driver.Stops++
-			}
-
-			stops[key] = make([]*Driver, 0, len(drivers))
-		}
-
-		done := true
-		for _, driver := range drivers {
-			if len(driver.Gossip) != len(drivers) {
-				done = false
-				break
-			}
-		}
-
-		if done {
-			fmt.Println("Done!", minute, "minutes.")
-			return
-		}
-	}
-
-	fmt.Println("Never.")
+	secrets     map[int]bool
+	id          int
+	currentStop int
+	route       []int
+	stopCounter int
 }
 
 func main() {
-	routes := [][]string{}
-	stops := map[string]bool{}
+	routes := [][]int{}
 
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
@@ -79,13 +26,78 @@ func main() {
 			break
 		}
 		input := strings.Split(strings.Trim(scanner.Text(), " "), " ")
-		route := make([]string, 0, len(input))
+		route := make([]int, 0, len(input))
 		for _, stop := range input {
-			route = append(route, stop)
-			stops[stop] = true
+			detour, _ := strconv.Atoi(stop)
+			route = append(route, detour)
 		}
 		routes = append(routes, route)
 	}
 
-	simulate(routes, stops)
+	drivers := []*Driver{}
+
+	numDrivers := len(routes)
+
+	for i, v := range routes {
+		drivers = append(drivers, &Driver{
+			secrets:     make(map[int]bool),
+			id:          i,
+			currentStop: v[0],
+			route:       v,
+			stopCounter: 0,
+		})
+		drivers[i].secrets[i] = true
+	}
+
+	for _, driver := range drivers {
+		fmt.Printf("Driver %d: secrets: %+v, currentStop: %+v, route: %+v, stopCounter: %d\n", driver.id, driver.secrets, driver.currentStop, driver.route, driver.stopCounter)
+	}
+
+	counter := 1
+	for i := 1; i <= 480; i++ {
+		if transferSecrets(drivers, numDrivers) {
+			break
+		}
+		updateDrivers(drivers)
+		counter++
+	}
+
+	for _, driver := range drivers {
+		fmt.Printf("Driver %d: secrets: %+v, currentStop: %+v, route: %+v, stopCounter: %d\n", driver.id, driver.secrets, driver.currentStop, driver.route, driver.stopCounter)
+	}
+
+	if counter == 481 {
+		fmt.Println("Never")
+	} else {
+		fmt.Println(counter)
+	}
+
+}
+
+func transferSecrets(drivers []*Driver, numSecrets int) bool {
+	counter := 0
+	for _, v := range drivers {
+		for _, v2 := range drivers {
+			if v.currentStop == v2.currentStop {
+				for s := range v2.secrets {
+					v.secrets[s] = true
+				}
+			}
+		}
+		if len(v.secrets) == numSecrets {
+			counter++
+		}
+	}
+
+	if counter == numSecrets {
+		return true
+	}
+	return false
+}
+
+func updateDrivers(drivers []*Driver) {
+	for _, v := range drivers {
+		v.stopCounter = (v.stopCounter + 1) % len(v.route)
+		v.currentStop = v.route[v.stopCounter]
+	}
 }

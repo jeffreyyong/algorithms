@@ -34,28 +34,15 @@ func main() {
 		routes = append(routes, route)
 	}
 
-	drivers := []*Driver{}
-
-	numDrivers := len(routes)
-
-	for i, v := range routes {
-		drivers = append(drivers, &Driver{
-			secrets:     make(map[int]bool),
-			id:          i,
-			currentStop: v[0],
-			route:       v,
-			stopCounter: 0,
-		})
-		drivers[i].secrets[i] = true
-	}
+	drivers := initDrivers(routes)
 
 	for _, driver := range drivers {
 		fmt.Printf("Driver %d: secrets: %+v, currentStop: %+v, route: %+v, stopCounter: %d\n", driver.id, driver.secrets, driver.currentStop, driver.route, driver.stopCounter)
 	}
 
 	counter := 1
-	for i := 1; i <= 480; i++ {
-		if transferSecrets(drivers, numDrivers) {
+	for i := 1; i <= 100; i++ {
+		if transferSecrets(drivers) {
 			break
 		}
 		updateDrivers(drivers)

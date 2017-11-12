@@ -82,6 +82,14 @@ func transferSecrets(drivers []*Driver, numSecrets int) bool {
 	return false
 }
 
+func gossip(driver1, driver2 *Driver) {
+	if driver1.currentStop == driver2.currentStop {
+		for s := range driver2.secrets {
+			driver1.secrets[s] = true
+		}
+	}
+}
+
 func updateDrivers(drivers []*Driver) {
 	for _, v := range drivers {
 		v.stopCounter = (v.stopCounter + 1) % len(v.route)

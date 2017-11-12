@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"reflect"
 	"strconv"
 	"strings"
 )
@@ -41,7 +42,7 @@ func main() {
 	}
 
 	counter := 1
-	for i := 1; i <= 100; i++ {
+	for i := 1; i <= 480; i++ {
 		if transferSecrets(drivers) {
 			break
 		}
@@ -61,17 +62,32 @@ func main() {
 
 }
 
-func transferSecrets(drivers []*Driver, numSecrets int) bool {
+func initDrivers(routes [][]int) []*Driver {
+	drivers := []*Driver{}
+
+	for i, v := range routes {
+		drivers = append(drivers, &Driver{
+			secrets:     make(map[int]bool),
+			id:          i,
+			currentStop: v[0],
+			route:       v,
+			stopCounter: 0,
+		})
+		drivers[i].secrets[i] = true
+	}
+	return drivers
+}
+
+func transferSecrets(drivers []*Driver) bool {
+	numSecrets := len(drivers)
 	counter := 0
-	for _, v := range drivers {
-		for _, v2 := range drivers {
-			if v.currentStop == v2.currentStop {
-				for s := range v2.secrets {
-					v.secrets[s] = true
-				}
+	for _, driver1 := range drivers {
+		for _, driver2 := range drivers {
+			if !reflect.DeepEqual(driver1, driver2) {
+				gossip(driver1, driver2)
 			}
 		}
-		if len(v.secrets) == numSecrets {
+		if len(driver1.secrets) == numSecrets {
 			counter++
 		}
 	}

@@ -23,5 +23,12 @@ import collections
 class Solution:
 
     def can_permutate_palindrome(self, s):
-        return sum(v % 2 for v in collections.Counter(s).values()) < 2
+
+        setA = set()
+        for i in s:
+            if i in setA:
+                setA.remove(i)
+            else:
+                setA.add(i)
+        return len(setA) <= 1
 

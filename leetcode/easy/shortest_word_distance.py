@@ -14,21 +14,44 @@ You may assume that word1 does not equal to word2, and word1 and word2 are both 
 class Solution:
 
     def shortest_distance(self, words, word1, word2):
-        size = len(words)
-        index1, index2 = size, size
-        ans = size
 
-        for i in range(size):
-            if words[i] == word1:
-                index1 = i
-                ans = min(ans, abs(index1 - index2))
+        def minDis(s1, s2):
 
-            if words[i] == word2:
-                index2 = i
-                ans = min(ans, abs(index1 - index2))
+            # find the min difference (absolute) between elem in s1 and s2 (both sorted).
 
-        return ans
+            # saddleback search
+            i, j = 0, 0
+            dist = s1[i] - s2[j]
+            dist_min = abs(dist)
+
+            while i < len(s1) and j < len(s2):
+                dist = s1[i] - s2[j]
+                dist_min = min(dist_min, abs(dist))
+
+                if dist == 0:
+                    return 0
+
+                elif dist > 0:
+                    j += 1
+                else:
+                    i += 1
+
+            return dist_min
 
 
+        idxs_1 = []
+        idxs_2 = []
 
-    # O(n) time, O(1) space.
+        for i, x in enumerate(words):
+            if x == word1:
+                idxs_1.append(i)
+                print(x)
+            if x == word2:
+                idxs_2.append(i)
+                print(x)
+
+
+        return minDis(idxs_1, idxs_2)
+
+
+    

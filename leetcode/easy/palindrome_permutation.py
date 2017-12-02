@@ -23,7 +23,6 @@ import collections
 class Solution:
 
     def can_permutate_palindrome(self, s):
-
         setA = set()
         for i in s:
             if i in setA:
@@ -31,4 +30,3 @@ class Solution:
             else:
                 setA.add(i)
         return len(setA) <= 1
-

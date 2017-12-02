@@ -28,6 +28,7 @@ Output: False
 
 class Solution:
     def find_target(self, root, k):
+        if not root: return False
         bfs, s = [root], set()
         for i in bfs:
             if k -i.val in s: return True

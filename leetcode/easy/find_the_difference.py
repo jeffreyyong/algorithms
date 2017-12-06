@@ -10,5 +10,7 @@ Find the letter that was added in t.
 class Solution:
 
     def find_the_difference(self, s, t):
-        s, t = sorted(s), sorted(t)
-        return t[-1] if s == t[:-1] else [x[1] for x in zip(s, t) if x[0] != x[1]][0]
+        sum1 = sum(map(ord, [c for c in s]))
+        sum2 = sum(map(ord, [c for c in t]))
+
+        return chr(sum2-sum1)

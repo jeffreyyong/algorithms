@@ -1,4 +1,5 @@
 import unittest
+import logging 
 
 from lru_cache import LRUCache
 
@@ -24,5 +25,3 @@ class LRUCacheTest(unittest.TestCase):
         self.assertEqual(3, actual)
         actual = cache.get(4)
         self.assertEqual(4, actual)
-
-

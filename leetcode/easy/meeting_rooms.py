@@ -1,5 +1,6 @@
 '''
-Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei), determine if a person could attend all meetings.
+Given an array of meeting time intervals consisting of start and end times 
+[[s1,e1],[s2,e2],...] (si < ei), determine if a person could attend all meetings.
 
 For example,
 Given [[0, 30],[5, 10],[15, 20]],
@@ -14,11 +15,8 @@ class Interval:
 class Solution:
 
     def can_attend_meetings(self, intervals):
-        intervals.sort(key=lambda x:x.start)
-
-        for i in range(1, len(intervals)):
-            if intervals[i].start < intervals[i -1].end:
+        a = sorted(intervals, key=lambda i: i.start)
+        for i in range(len(a)-1):
+            if a[i].end > a[i+1].start:
                 return False
-
         return True
-

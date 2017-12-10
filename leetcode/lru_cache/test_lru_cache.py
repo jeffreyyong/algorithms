@@ -25,3 +25,19 @@ class LRUCacheTest(unittest.TestCase):
         self.assertEqual(3, actual)
         actual = cache.get(4)
         self.assertEqual(4, actual)
+
+    def test(self):
+        cache = LRUCache(2)
+
+        cache.put(1,1)
+        cache.put(2,2)
+        cache.get(1)
+        cache.get(1)
+        cache.get(2)
+        cache.put(3,3)
+
+        actual = cache.get(2)
+        self.assertEqual(-1, actual)
+
+
+

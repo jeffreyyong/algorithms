@@ -15,6 +15,9 @@ canConstruct("aa", "aab") -> true
 
 class Solution:
     def can_construct(self, ransom_note, magazine):
-        return not collections.Counter(ransom_note) - collections.Counter(magazine)
+        for i in set(ransom_note):
+            if ransom_note.count(i) > magazine.count(i):
+                return False
+        return True
 
     # O(m+n) with m and n being the lengths of the strings

@@ -18,6 +18,7 @@ Note:
 class Solution:
 
     def find_relative_ranks(self, nums):
+        # Reverse sorting
         sort = sorted(nums)[::-1]
         rank = ["Gold Medal", "Silver Medal", "Bronze Medal"] + list(map(str, range(4, len(nums) + 1)))
         return list(map(dict(zip(sort, rank)).get, nums))

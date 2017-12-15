@@ -18,5 +18,8 @@ class Solution:
 
     # @return a string
     def title_to_number(self, string):
-        return reduce(lambda x, y : x * 26 + y, [ord(c) - 64 for c in list(string)])
+        col = 0
+        for letter in string:
+            col = col * 26 + ord(letter) - 64
+        return col
 

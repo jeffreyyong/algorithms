@@ -1,4 +1,6 @@
 '''
+Question:
+
 Given a non-empty array of non-negative integers nums, the degree of this array is defined
 as the maximum frequency of any one of its elements.
 
@@ -21,12 +23,41 @@ Input: [1,2,2,3,1,4,2]
 Output: 6
 '''
 
-from collections import defaultdict
+'''
+Answer:
 
+An array that has degree d, must have some element x occur d times. If some subarray has 
+the same degree, then some element x (that occured d times), still occurs d times. 
+The shortest such subarray would be from the first occurrence of x until the last occurrence.
+
+For each element in the given array, let's know left, the index of its first occurrence; 
+and right the index of its last occurrence. For example, with nums = [1,2,3,2,5],
+we have left[2] = 1 and right[2] = 3
+
+Then, for each element x that occurs the maximum numbers of times, right[x] - left[x] + 1
+will be our candidate answer, and we'll take the minimum of those candidates.
+
+
+Time complexity:
+O(N), where N is the length of nums. Every loop is through O(N) itmes with O(1) work
+inside the for-block.
+'''
 class Solution:
 
     def find_shortest_subarray(self, nums):
-        map = defaultdict(list)
-        for i in range(len(nums)):
-            map[nums[i]].append(i)
-        return min((-len(list), list[-1] - list[0] + 1) for list in map.values())[1]
+        left, right, count = {}, {}, {}
+        for i, x in enumerate(nums):
+            # Index of the first occurrence
+            if x not in left: left[x] = i
+            # Index of the last occurrence
+            right[x] = i
+            count[x] = count.get(x, 0) + 1
+
+        ans = len(nums)
+        degree = max(count.values())
+        for x in count:
+            if count[x] == degree:
+                print(count)
+                ans = min(ans, right[x] - left[x] + 1)
+
+        return ans

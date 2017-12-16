@@ -57,7 +57,6 @@ class Solution:
         degree = max(count.values())
         for x in count:
             if count[x] == degree:
-                print(count)
                 ans = min(ans, right[x] - left[x] + 1)
 
         return ans

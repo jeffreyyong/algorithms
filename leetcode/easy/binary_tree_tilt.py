@@ -33,6 +33,7 @@ We might as well do the ans += abs(left_sum - right_sum) part
 """
 class Solution:
 
+    # Depth first search solution
     def find_tilt(self, root):
         self.ans = 0
         def _sum(node):

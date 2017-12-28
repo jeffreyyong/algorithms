@@ -1,5 +1,5 @@
 '''
-You are climbing a stair case. It takes n steps to reach to the top.
+You are climbing a staircase. It takes n steps to reach to the top.
 
 Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
 
@@ -54,9 +54,8 @@ Base cases:
     solution for each number n. Or if we look at it close, it is clear that this is basically
     a fibonacci number, with the starting numbers as 1 and 2, instead of 1 and 1.
 
-    Time complexity O(n), Single loop upto n is required to calcualte nth fibonacci number
+    Time complexity O(n), Single loop upto n is required to calculate nth fibonacci number
     Space complexity: O(n) Dynamic programming array is used
-
 '''
 
 class Solution:
@@ -76,8 +75,3 @@ class Solution:
             one_step_before = all_ways
 
         return all_ways
-
-
-
-
-

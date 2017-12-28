@@ -21,7 +21,7 @@ In this case, no transaction is done, i.e. max profit = 0
 '''
 Solution:
 
-The logic to sovle this problem is same as "max subarray problem" using kadane's Algorithm
+The logic to solve this problem is same as "max subarray problem" using kadane's Algorithm
 All the straight forward solution should work, but if the interviewer twists the question
 slightly by giveing the difference array of price.
 
@@ -36,7 +36,7 @@ max_so_far = maximum value found so far
 
 We just need to find the peak following the smallest valley. We can maintain two variables -
 min_price and max_profit corresponding to the smallest valley and maximum peak
-(maximum difference between selling price and inprice) obstained so far respectively.
+(maximum difference between selling price and minprice) obtained so far respectively.
 
 Time complexity:
 O(n). Only a single pass is needed.

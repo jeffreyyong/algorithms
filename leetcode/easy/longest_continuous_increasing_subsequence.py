@@ -6,7 +6,7 @@ Example 1:
     Input: [1,3,5,4,7]
     Output: 3
     Explanation: The longest continuous increasing subsequence is [1,3,5], its length is 3.
-    Even though [1,3,5,7] is alse an increasing subsequence, it's not a continuous one
+    Even though [1,3,5,7] is also an increasing subsequence, it's not a continuous one
     where 5 and 7 are separated by 4.
 
     Input: [2,2,2,2,2]
@@ -29,12 +29,11 @@ and our answer gets updated appropriately.
 
 
 class Solution:
-
     
     def find_length_of_lcis(self, nums):
         ans = anchor = 0
         for i in range (len(nums)):
-            if i and nums[i - 1] >= nums[i]: anchor = i
+            if nums[i - 1] >= nums[i]: anchor = i
             ans = max(ans, i - anchor + 1)
         return ans
 

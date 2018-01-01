@@ -22,4 +22,3 @@ class Solution:
         for letter in string:
             col = col * 26 + ord(letter) - 64
         return col
-

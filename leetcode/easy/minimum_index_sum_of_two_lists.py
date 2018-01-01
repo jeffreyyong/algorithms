@@ -20,7 +20,8 @@ Input:
 ["Shogun", "Tapioca Express", "Burger King", "KFC"]
 ["KFC", "Shogun", "Burger King"]
 Output: ["Shogun"]
-Explanation: The restaurant they both like and have the least index sum is "Shogun" with index sum 1 (0+1).
+Explanation: The restaurant they both like and have the least index sum is 
+"Shogun" with index sum 1 (0+1).
 
 Note:
 
@@ -54,6 +55,3 @@ class Solution:
                 ans.append(v)
 
         return ans
-
-
-

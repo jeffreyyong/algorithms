@@ -13,10 +13,10 @@ Only three moves are needed (remember each move increments two elements):
 
 '''
 Answer: It is a math question
-Let's define the sum as the sum of all the nnumbers, before any moves; minNum as the min number in the list, n is the 
-length of the list'
+Let's define the sum as the sum of all the nnumbers, before any moves; minNum as the 
+min number in the list, n is the length of the list'
 
-After, say  moves, we get all the numbers as x, and we will get the following equation
+After, say some n moves, we get all the numbers as x, and we will get the following equation
 
 sum + m * (n - 1) = x * n
 

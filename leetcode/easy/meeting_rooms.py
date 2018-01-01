@@ -16,7 +16,10 @@ class Solution:
 
     def can_attend_meetings(self, intervals):
         a = sorted(intervals, key=lambda i: i.start)
+
         for i in range(len(a)-1):
+            # if the start time of the next meeting is after the end time of the
+            # previous meeting, then returns false
             if a[i].end > a[i+1].start:
                 return False
         return True

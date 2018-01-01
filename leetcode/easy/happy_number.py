@@ -38,7 +38,3 @@ class Solution:
                 mem.add(n)
         else:
             return True
-
-    
-
-

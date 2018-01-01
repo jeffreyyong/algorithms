@@ -65,10 +65,3 @@ class Solution:
                 max3 = n
 
         return max(min1 * min2 * max1, max1 * max2 * max3)
-
-
-
-
-
-
-

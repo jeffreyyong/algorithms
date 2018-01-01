@@ -1,5 +1,6 @@
 '''
-Given a binary search tree with non-negative values, find the minimum absolute difference between values of any two nodes.
+Given a binary search tree with non-negative values, find the minimum absolute 
+difference between values of any two nodes.
 
 Example:
 
@@ -15,7 +16,10 @@ Output:
 1
 
 Explanation:
-The minimum absolute difference is 1, which is the difference between 2 and 1 (or between 2 and 3).
+The minimum absolute difference is 1, which is the difference between 2 and 1
+(or between 2 and 3).
+
+Explanation:
 Note: There are at least two nodes in this BST.
 '''
 
@@ -39,6 +43,3 @@ class TreeNode:
     def explore(self, node):
         if node.left == None:
             return(node.val, inf, node.val)
-
-
-

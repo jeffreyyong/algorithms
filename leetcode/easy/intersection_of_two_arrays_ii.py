@@ -11,7 +11,8 @@ Note:
 Follow up:
     What if the given array is already sorted? How would you optimized your algorithm?
     What if nums1's size is small compared to nums2's size? Which algorithm is better?
-    What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into memory at once?
+    What if elements of nums2 are stored on disk, and the memory is limited such that you
+    cannot load all elements into memory at once?
 '''
 
 from collections import Counter
@@ -26,7 +27,6 @@ class Solution:
             else:
                 dict1[nums1[i]] = 1
 
-
         res = []
 
         for i in range(len(nums2)):
@@ -35,8 +35,3 @@ class Solution:
                 dict1[nums2[i]] -= 1
 
         return res
-
-
-
-
-

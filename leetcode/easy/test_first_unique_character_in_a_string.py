@@ -10,6 +10,3 @@ class FirstUniqueCharTest(unittest.TestCase):
         self.assertEqual(0, actual)
         actual = solution.first_uniq_char("loveleetcode")
         self.assertEqual(2, actual)
-
-
-

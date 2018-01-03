@@ -1,12 +1,12 @@
 import unittest
 
-from relative_ranks import *
+from convert_num_to_hex import *
 
-class RelativeRanksTest(unittest.TestCase):
+class ToHextTest(unittest.TestCase):
 
-    def test_relative_ranks(self):
+    def test_to_hex(self):
 
         solution = Solution()
-        actual = solution.find_relative_ranks([5,4,3,2,1])
-        self.assertEqual(["Gold Medal", "Silver Medal", "Bronze Medal", "4", "5"], actual)
+        actual = solution.to_hex(26)
+        self.assertEqual("1a", actual)
 

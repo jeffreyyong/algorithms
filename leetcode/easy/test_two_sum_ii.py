@@ -1,11 +1,13 @@
 import unittest
 
-from two_sum_ii import *
+from find_pivot_index import *
 
-class TwoSumTest(unittest.TestCase):
+class FindPivotIndexTest(unittest.TestCase):
 
-    def test_two_sum(self):
+    def test_find_pivot_index(self):
 
         solution = Solution()
-        actual = solution.two_sum([2,7,11,15], 9)
-        self.assertEqual([1,2], actual)
+        actual = solution.pivot_index([1,7,3,6,5,6])
+        self.assertEqual(3, actual)
+        actual = solution.pivot_index([1,2,3])
+        self.assertEqual(-1, actual)

@@ -45,10 +45,8 @@ class Solution:
         for i, x in enumerate(words):
             if x == word1:
                 idxs_1.append(i)
-                print(x)
             if x == word2:
                 idxs_2.append(i)
-                print(x)
 
 
         return minDis(idxs_1, idxs_2)

@@ -11,7 +11,13 @@ Explanation: Maximum average is (12-5-6+50)/4 = 51/4 = 12.75
 
 '''
 Solution:
-    Use sum of sliding window
+Can simply traverse over nums just once, and on the go keep on determining the sums possible for the subarrays
+of length k. To understand this idea, assume that we already know the sum of elements from index i 
+to index i + k, say it is x
+
+Now, to determine the sum of elements from index i + 1 to the index i + k + 1, all we need to do is to subtract
+the elements nums[i] from x and to add the element nums[i + k + 1] to x.
+Can carry out this process and determine the maximum possible average
 '''
 
 class Solution:

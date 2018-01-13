@@ -16,7 +16,7 @@ Solution:
 
 class Solution:
 
-    def find_max_average(root, nums, k):
+    def find_max_average(self, nums, k):
         sum = 0
         for i in range(k):
             sum += nums[i]

@@ -18,6 +18,11 @@ to index i + k, say it is x
 Now, to determine the sum of elements from index i + 1 to the index i + k + 1, all we need to do is to subtract
 the elements nums[i] from x and to add the element nums[i + k + 1] to x.
 Can carry out this process and determine the maximum possible average
+
+Complexity:
+    Time complexity: O(n) We iterate over the nums array of length n once to fill the sum array. Then, we iterate
+    over n - k elements of sum to determine the required result
+    Space complexity: O(n) We make use of sum array of length n to store the cumulative sum.
 '''
 
 class Solution:

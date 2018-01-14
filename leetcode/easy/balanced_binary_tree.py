@@ -51,3 +51,44 @@ class Solution:
                 else:
                     node = node.right
         return True
+
+
+
+    '''
+    Fastest solution
+    '''
+
+    def is_balanced(self, root):
+        output = self.is_balanced_mod(root)
+        if type(output) == int:
+            return True
+        else:
+            return False
+
+    def is_balanced_mod(self, root):
+        if root == None:
+            return 0
+        if root.left == None and root.right == None:
+            return 1
+        elif root.left == None and root.right != None:
+            if root.right.left != None or root.right.right != None:
+                return False
+            else:
+                return 2
+
+        elif root.left != None and root.right == None:
+            if root.left.left != None or root.left.right != None:
+                return False
+            else:
+                return 2
+
+        else:
+            lbal = self.is_balanced_mod(root.left)
+            rbal = self.is_balanced_mod(root.right)
+            if rbal and labl:
+                if (lbal - rbal) ** 2 > 1:
+                    return False
+                else:
+                    return 1 + max(labl, rabl)
+            return False
+

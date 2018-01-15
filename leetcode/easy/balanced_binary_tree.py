@@ -47,7 +47,7 @@ class Solution:
                     if abs(left - right) > 1: return False
                     depths[node] = 1 + max(left, right)
                     last = node
-                    node = Noner
+                    node = None
                 else:
                     node = node.right
         return True

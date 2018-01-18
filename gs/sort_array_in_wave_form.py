@@ -43,7 +43,7 @@ class Solution:
         b) If current element is smallar than next odd element, swap next and current.
     '''
 
-    def sort_in_wave_2(self,arr, n):
+    def sort_in_wave_2(self, arr, n):
 
         # Traverse all even elements
         for i in range(0, n, 2):

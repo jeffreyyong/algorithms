@@ -12,8 +12,6 @@ For example:
     AA -> 27
     AB -> 28 
 '''
-from functools import reduce
-
 class Solution:
 
     # @return a string

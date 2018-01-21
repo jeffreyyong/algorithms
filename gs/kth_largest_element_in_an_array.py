@@ -1,4 +1,6 @@
 '''
+TODO:
+
 Find the kth largest element in an unsorted array. Note that it is the kth largest element
 in the sorted order, not the kth distict element.
 
@@ -65,8 +67,8 @@ class Solution:
         low = l
         while l < r:
             if nums[l] < nums[r]:
-                nums[l], nums[low] = nums[loq], nums[l]
+                nums[l], nums[low] = nums[low], nums[l]
                 low += 1
             l += 1
-        nums[low], nums[r], nums[r], nums[loq]
+        nums[low], nums[r] =  nums[r], nums[low]
         return low

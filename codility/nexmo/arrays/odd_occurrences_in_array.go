@@ -36,7 +36,7 @@ expected worst-case time complexity is O(N);
 expected worst-case space complexity is O(1), beyond input storage (not counting the storage required for input arguments).
 */
 
-package nexmo
+package arrays
 
 func findOdd(A []int) int {
 	odd := 0

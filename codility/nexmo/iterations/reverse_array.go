@@ -4,7 +4,7 @@ Solution: We can iterate over the first half of the array and exchange the eleme
 				  those in the second part of the array.
 */
 
-package nexmo
+package iterations
 
 func Sum(x, y int) int {
 	return x + y

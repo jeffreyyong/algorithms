@@ -9,6 +9,5 @@ func twoSum(nums []int, target int) []int {
 		}
 		m[b] = i
 	}
-	return []int{}
-
+	return nil
 }
